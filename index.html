@@ -26,7 +26,7 @@
     <ul>
         <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
-        <li><a href="#gallery">Products</a></li>
+        <li><a href="#products">Products</a></li>
         <li><a href="#contact">Contact</a></li>
         <li><a href="#login">Admin</a></li>
     </ul>
@@ -35,7 +35,7 @@
 <!-- HOME -->
 <section id="home" class="section section-blue">
     <h1>MS Suruj Hardware</h1>
-    <p>Trusted supplier of quality construction and hardware materials at reasonable prices.</p>
+    <p>Trusted supplier of quality construction and hardware materials.</p>
 </section>
 
 <!-- ABOUT -->
@@ -48,20 +48,19 @@
 </section>
 
 <!-- PRODUCTS -->
-<section id="gallery" class="section section-green">
-    <h2>Our Products</h2>
-
-    <div class="product-grid">
-        <div class="product-card">Cement</div>
-        <div class="product-card">TMT Rod</div>
-        <div class="product-card">Sanitary</div>
-        <div class="product-card">Pipes & Fittings</div>
-    </div>
+<section id="products" class="section section-green">
+    <h2>Products</h2>
+    <ul>
+        <li>Cement</li>
+        <li>TMT Rod</li>
+        <li>Sanitary</li>
+        <li>Pipes & Fittings</li>
+    </ul>
 </section>
 
 <!-- CONTACT -->
 <section id="contact" class="section section-light">
-    <h2>Contact Us</h2>
+    <h2>Contact</h2>
     <p>Kapashbari, Hojai, Assam – 782445</p>
     <p>📞 9387127176</p>
     <p>✉ ms.surujhardware@gmail.com</p>
@@ -77,29 +76,7 @@
 <!-- ADMIN PANEL -->
 <section id="adminPanel" class="section section-light hidden">
 
-<div id="invoice">
-
-<h3>Add Customer</h3>
-<input id="custName" placeholder="Customer Name">
-<input id="custPhone" placeholder="Phone Number">
-<textarea id="custAddress" placeholder="Address"></textarea>
-<button onclick="addCustomer()">Save Customer</button>
-
-<h3>Select Customer</h3>
-<select id="customerSelect"></select>
-
-<h3>Add Product</h3>
-<input id="pname" placeholder="Product Name">
-<input id="price" type="number" placeholder="Price">
-<input id="stock" type="number" placeholder="Stock">
-<button onclick="addProduct()">Add Product</button>
-
-<h3>Stock Overview</h3>
-<table>
-<tr><th>Product</th><th>Stock</th><th>Price</th></tr>
-<tbody id="stockTable"></tbody>
-</table>
-
+<!-- INVOICE START -->
 <div id="invoice">
 
 <h2>MS Suruj Hardware</h2>
@@ -108,26 +85,40 @@
 <hr>
 
 <h3>Customer Details</h3>
-<p><b>Name:</b> <span id="billCustName"></span></p>
-<p><b>Phone:</b> <span id="billCustPhone"></span></p>
-<p><b>Address:</b> <span id="billCustAddress"></span></p>
+<select id="customerSelect"></select>
+
+<p><b>Name:</b> <span id="billCustName">Walk-in Customer</span></p>
+<p><b>Phone:</b> <span id="billCustPhone">-</span></p>
+<p><b>Address:</b> <span id="billCustAddress">-</span></p>
 <p><b>Date:</b> <span id="billDate"></span></p>
 
 <hr>
 
 <h3>Add Item</h3>
+
 <select id="plist"></select>
+
 <input id="qty" type="number" placeholder="Quantity">
+
+<!-- UNIT SELECTION (UPDATED WITH BAGS) -->
 <select id="unit">
-  <option value="pcs">Pieces</option>
-  <option value="quintal">Quintal</option>
+    <option value="pcs">Pieces</option>
+    <option value="bags">Bags</option>
+    <option value="quintal">Quintal</option>
 </select>
+
 <button onclick="addBill()">Add Item</button>
 
 <table>
+<thead>
 <tr>
-  <th>Item</th><th>Qty</th><th>Unit</th><th>Amount</th><th>Action</th>
+    <th>Item</th>
+    <th>Qty</th>
+    <th>Unit</th>
+    <th>Amount</th>
+    <th>Action</th>
 </tr>
+</thead>
 <tbody id="billTable"></tbody>
 </table>
 
@@ -143,31 +134,17 @@
 
 <label>Payment Mode</label>
 <select id="paymentMode">
-  <option value="Cash">Cash</option>
-  <option value="UPI">UPI</option>
+    <option value="Cash">Cash</option>
+    <option value="UPI">UPI</option>
 </select>
 
-<p><b>Payment:</b> <span id="billPayment"></span></p>
+<p><b>Payment:</b> <span id="billPayment">Cash</span></p>
 
 </div>
-
-<button onclick="saveBill()">Save Bill</button>
-<button onclick="downloadPDF()">Download PDF</button>
-
-<table>
-<tr><th>Item</th><th>Qty</th><th>Amount</th></tr>
-<tbody id="billTable"></tbody>
-</table>
-
-<p>Subtotal: ₹<span id="sub">0</span></p>
-<p>CGST (9%): ₹<span id="cgst">0</span></p>
-<p>SGST (9%): ₹<span id="sgst">0</span></p>
-<p><b>Grand Total: ₹<span id="total">0</span></b></p>
+<!-- INVOICE END -->
 
 <button onclick="saveBill()">Save Bill</button>
 <button onclick="downloadPDF()">Download Bill PDF</button>
-
-</div>
 
 <h3>Audit Log</h3>
 <ul id="audit"></ul>
