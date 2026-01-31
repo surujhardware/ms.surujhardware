@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+}
+
+.header {
+    background: linear-gradient(90deg, #ff9800, #ff5722);
+    color: white;
+    padding: 8px;
+    font-weight: bold;
+}
+
+.container {
+    max-width: 420px;
+    background: white;
+    margin: 10px auto;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+}
+
+button {
+    background: #2196f3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+.hidden {
+    display: none;
+}
+
+h2, h3 {
+    text-align: center;
+}
+
+ul {
+    padding-left: 18px;
+}
+
+.helpline {
+    text-align: center;
+    color: green;
+    font-weight: bold;
+}

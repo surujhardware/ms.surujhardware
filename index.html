@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>M/S Suruj Hardware</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<!-- VERY IMPORTANT -->
+<script src="script.js" defer></script>
+</head>
+<body>
+
+<div class="header">
+    <marquee>M/S SURUJ HARDWARE • CEMENT • ROD • SANITARY • ELECTRICAL</marquee>
+</div>
+
+<div class="container" id="invoice">
+
+<h2>M/S Suruj Hardware</h2>
+<p class="helpline">Helpline: 9387127176</p>
+
+<!-- ROLE SELECTION -->
+<div id="roleSection">
+    <button onclick="openAdmin()">Admin</button>
+    <button onclick="openCustomer()">Customer</button>
+</div>
+
+<!-- ADMIN LOGIN -->
+<div id="adminLogin" class="hidden">
+    <input id="adminMobile" placeholder="Admin Mobile">
+    <input id="adminPassword" type="password" placeholder="Password">
+    <button onclick="loginAdmin()">Login</button>
+    <button onclick="goHome()">Back</button>
+</div>
+
+<!-- CUSTOMER VIEW -->
+<div id="customerView" class="hidden">
+    <h3>Welcome Customer</h3>
+    <p>Billing is done at counter.</p>
+    <button onclick="goHome()">Back</button>
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel" class="hidden">
+
+<h3>Bill Info</h3>
+<p>Bill No: <span id="billNo"></span></p>
+<p>Date: <span id="billDate"></span></p>
+
+<h3>GST (%)</h3>
+<input type="number" id="gstRate" value="18">
+
+<h3>Add Product</h3>
+<input id="pname" placeholder="Product Name">
+<input id="buyPrice" type="number" placeholder="Buying Price">
+<input id="sellPrice" type="number" placeholder="Selling Price">
+<button onclick="addProduct()">Add Product</button>
+
+<h3>Billing</h3>
+<select id="productSelect"></select>
+<input id="qty" type="number" placeholder="Quantity">
+<button onclick="addToBag()">Add to Bag</button>
+
+<ul id="bag"></ul>
+
+<p>Subtotal: ₹<span id="subTotal">0</span></p>
+<p>GST: ₹<span id="gstAmount">0</span></p>
+<p><b>Grand Total: ₹<span id="grandTotal">0</span></b></p>
+<p>Profit: ₹<span id="billProfit">0</span></p>
+
+<button onclick="saveBill()">Save Bill</button>
+<button onclick="downloadPDF()">Download PDF</button>
+
+<h3>Daily Report</h3>
+<p>Sale: ₹<span id="sale">0</span></p>
+<p>Purchase: ₹<span id="purchase">0</span></p>
+<p>Profit: ₹<span id="profit">0</span></p>
+
+<h3>Monthly Report</h3>
+<p>Sale: ₹<span id="mSale">0</span></p>
+<p>Purchase: ₹<span id="mPurchase">0</span></p>
+<p>Profit: ₹<span id="mProfit">0</span></p>
+
+<button onclick="goHome()">Logout</button>
+
+</div>
+</div>
+
+</body>
+</html>
