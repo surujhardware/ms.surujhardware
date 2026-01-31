@@ -1,232 +1,269 @@
-/* =========================================
-   M/S SURUJ HARDWARE - PROFESSIONAL STYLES
-   Colorful | Clean | Mobile Friendly
-   ========================================= */
+/* =====================================================
+   M/S SURUJ HARDWARE – EXTRA COLORFUL THEME
+   Professional • Modern • Business Ready
+   ===================================================== */
 
-/* ---------- GLOBAL RESET ---------- */
+/* ---------- RESET ---------- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* ---------- BODY ---------- */
 body {
-    font-family: "Segoe UI", Arial, sans-serif;
-    background: linear-gradient(180deg, #eef3f8, #ffffff);
-    color: #333;
+    font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+    background: linear-gradient(180deg, #e0f2f1, #fdfefe);
+    color: #263238;
     line-height: 1.6;
 }
 
-/* ---------- WELCOME SCROLL BAR ---------- */
+/* ---------- WELCOME SCROLL ---------- */
 .welcome-bar {
-    background: linear-gradient(90deg, #ff9800, #ff5722);
-    color: #fff;
+    background: linear-gradient(90deg, #ff6f00, #ff8f00, #ffab00);
+    color: #ffffff;
     overflow: hidden;
     white-space: nowrap;
     padding: 10px 0;
-    font-weight: bold;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
 .welcome-text {
     display: inline-block;
     padding-left: 100%;
-    animation: scrollText 18s linear infinite;
+    animation: welcomeScroll 18s linear infinite;
 }
 
-@keyframes scrollText {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(-100%);
-    }
+@keyframes welcomeScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
 }
 
 /* ---------- NAVIGATION ---------- */
 .main-nav {
-    background: linear-gradient(90deg, #1e3c72, #2a5298);
-    color: #fff;
-    padding: 14px 20px;
+    background: linear-gradient(90deg, #0d47a1, #1565c0, #1976d2);
+    padding: 14px 22px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .nav-logo {
+    color: #ffffff;
     font-size: 22px;
-    font-weight: bold;
+    font-weight: 800;
+    letter-spacing: 1px;
 }
 
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 18px;
+    gap: 20px;
 }
 
 .nav-links a {
-    color: #fff;
+    color: #e3f2fd;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .nav-links a:hover {
-    text-decoration: underline;
+    color: #ffeb3b;
 }
 
 /* ---------- SECTIONS ---------- */
 .section {
-    padding: 35px 20px;
+    padding: 40px 22px;
 }
 
+/* Blue tone */
 .section-primary {
     background: linear-gradient(135deg, #e3f2fd, #bbdefb);
 }
 
+/* Green tone */
 .section-secondary {
-    background: linear-gradient(135deg, #f1f8e9, #dcedc8);
+    background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
 }
 
+/* Orange tone */
 .section-accent {
     background: linear-gradient(135deg, #fff3e0, #ffe0b2);
 }
 
+/* Light neutral */
 .section-light {
-    background: #ffffff;
+    background: linear-gradient(180deg, #ffffff, #f7f9fb);
 }
 
 /* ---------- HEADINGS ---------- */
 h1 {
-    font-size: 32px;
+    font-size: 34px;
     margin-bottom: 15px;
     color: #0d47a1;
 }
 
 h2 {
-    font-size: 26px;
+    font-size: 28px;
     margin-bottom: 15px;
     color: #1b5e20;
 }
 
 h3 {
-    margin-bottom: 10px;
-    color: #4e342e;
+    margin-bottom: 12px;
+    color: #e65100;
 }
 
-/* ---------- PRODUCTS ---------- */
+/* ---------- PRODUCT LIST ---------- */
 .product-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 18px;
 }
 
 .product-box {
-    background: #ffffff;
-    border-left: 6px solid #ff9800;
-    padding: 18px;
+    background: linear-gradient(180deg, #ffffff, #fefefe);
+    border-radius: 10px;
+    padding: 20px;
     text-align: center;
-    font-weight: 600;
-    border-radius: 6px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    font-weight: 700;
+    color: #37474f;
+    border-top: 6px solid #ff9800;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+    transition: transform 0.2s ease;
 }
 
-/* ---------- LOGIN ---------- */
-#login input {
+.product-box:hover {
+    transform: translateY(-4px);
+}
+
+/* ---------- LOGIN PAGE ---------- */
+.login-box {
+    max-width: 420px;
+    margin: 40px auto;
+    background: linear-gradient(180deg, #ffffff, #f1f8ff);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.18);
+}
+
+.login-box input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    border-radius: 6px;
+    border: 1px solid #b0bec5;
+}
+
+.login-note {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #546e7a;
+}
+
+/* ---------- INVOICE / DASHBOARD ---------- */
+.invoice-box {
+    max-width: 900px;
+    margin: auto;
+    background: linear-gradient(180deg, #ffffff, #f9fbff);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 10px 24px rgba(0,0,0,0.2);
+}
+
+.invoice-box hr {
+    margin: 18px 0;
+    border: none;
+    border-top: 2px dashed #b0bec5;
+}
+
+/* ---------- INPUTS ---------- */
+input, textarea, select {
     width: 100%;
     padding: 10px;
-    margin-top: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-}
-
-#login button {
-    margin-top: 12px;
-}
-
-/* ---------- INVOICE PANEL ---------- */
-.invoice-box {
-    background: linear-gradient(180deg, #ffffff, #f7f9fc);
-    border-radius: 8px;
-    padding: 25px;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
-}
-
-/* ---------- INVOICE HEADER ---------- */
-.invoice-header {
-    text-align: center;
-}
-
-.invoice-header h2 {
-    color: #0d47a1;
-}
-
-/* ---------- CUSTOMER SECTION ---------- */
-.invoice-customer input,
-.invoice-customer textarea {
-    width: 100%;
     margin-top: 8px;
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-}
-
-/* ---------- ITEM ENTRY ---------- */
-.invoice-items select,
-.invoice-items input {
-    width: 100%;
-    margin-top: 8px;
-    padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+    border-radius: 6px;
+    border: 1px solid #b0bec5;
+    font-size: 15px;
 }
 
 /* ---------- BILL TABLE ---------- */
 .bill-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 15px;
+    margin-top: 18px;
 }
 
 .bill-table th {
-    background: #1e88e5;
-    color: #fff;
+    background: linear-gradient(90deg, #1976d2, #2196f3);
+    color: #ffffff;
     padding: 10px;
 }
 
 .bill-table td {
-    border: 1px solid #ddd;
     padding: 8px;
+    border: 1px solid #cfd8dc;
     text-align: center;
 }
 
 /* ---------- SUMMARY ---------- */
 .invoice-summary {
-    margin-top: 15px;
-    padding: 15px;
-    background: #f1f8ff;
-    border-left: 5px solid #2196f3;
+    margin-top: 18px;
+    padding: 18px;
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    border-left: 6px solid #1976d2;
+    border-radius: 6px;
 }
 
 /* ---------- BUTTONS ---------- */
 button {
-    background: linear-gradient(90deg, #43a047, #2e7d32);
-    color: #fff;
+    background: linear-gradient(90deg, #2e7d32, #43a047);
+    color: #ffffff;
     border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
+    padding: 12px 18px;
+    border-radius: 6px;
+    font-weight: 700;
     cursor: pointer;
-    font-weight: 600;
+    margin-top: 10px;
 }
 
 button:hover {
-    opacity: 0.9;
+    background: linear-gradient(90deg, #1b5e20, #2e7d32);
 }
 
 /* ---------- PANEL ACTIONS ---------- */
 .panel-actions {
     margin-top: 20px;
     display: flex;
-    gap: 12px;
+    gap: 15px;
     flex-wrap: wrap;
+}
+
+/* ---------- WHATSAPP FLOAT ---------- */
+.whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(180deg, #25d366, #1ebe5d);
+    color: #ffffff;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 30px;
+    line-height: 58px;
+    text-decoration: none;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.35);
+}
+
+/* ---------- FOOTER ---------- */
+.main-footer {
+    background: linear-gradient(90deg, #263238, #37474f);
+    color: #ffffff;
+    text-align: center;
+    padding: 14px;
+    font-size: 14px;
 }
 
 /* ---------- UTIL ---------- */
@@ -234,44 +271,13 @@ button:hover {
     display: none;
 }
 
-/* ---------- WHATSAPP BUTTON ---------- */
-.whatsapp-float {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #25d366;
-    color: #fff;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    text-align: center;
-    font-size: 28px;
-    line-height: 56px;
-    text-decoration: none;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-/* ---------- FOOTER ---------- */
-.main-footer {
-    background: linear-gradient(90deg, #263238, #37474f);
-    color: #fff;
-    text-align: center;
-    padding: 12px;
-    font-size: 14px;
-}
-
-/* ---------- MOBILE RESPONSIVE ---------- */
+/* ---------- MOBILE ---------- */
 @media (max-width: 768px) {
     .nav-links {
         flex-direction: column;
-        gap: 10px;
+        gap: 12px;
     }
 
-    h1 {
-        font-size: 26px;
-    }
-
-    h2 {
-        font-size: 22px;
-    }
+    h1 { font-size: 28px; }
+    h2 { font-size: 24px; }
 }
