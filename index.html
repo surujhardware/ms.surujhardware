@@ -4,15 +4,19 @@
 <meta charset="UTF-8">
 <title>MS Suruj Hardware</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <link rel="stylesheet" href="style.css">
+
+<!-- PDF library (FREE) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script src="script.js" defer></script>
 </head>
 <body>
 
-<!-- SCROLLING WELCOME -->
+<!-- ONE-LINE SCROLLING WELCOME -->
 <div class="welcome-bar">
     <div class="welcome-text">
-        Welcome to MS Suruj Hardware – Trusted supplier of quality construction and hardware materials
+        Welcome to MS Suruj Hardware • Cement • TMT Rod • Sanitary • Pipes • Trusted Local Hardware Store
     </div>
 </div>
 
@@ -28,12 +32,14 @@
     </ul>
 </nav>
 
-<section id="home">
+<!-- HOME -->
+<section id="home" class="section section-blue">
     <h1>MS Suruj Hardware</h1>
-    <p>Trusted supplier of construction and hardware materials at fair prices.</p>
+    <p>Trusted supplier of quality construction and hardware materials at reasonable prices.</p>
 </section>
 
-<section id="about">
+<!-- ABOUT -->
+<section id="about" class="section section-light">
     <h2>About Us</h2>
     <p>
         MS Suruj Hardware is a local hardware store serving customers with quality construction
@@ -41,48 +47,37 @@
     </p>
 </section>
 
-<!-- PRODUCT IMAGE GALLERY -->
-<section id="gallery">
+<!-- PRODUCTS -->
+<section id="gallery" class="section section-green">
     <h2>Our Products</h2>
 
     <div class="product-grid">
-        <div class="product-card">
-            <img src="https://via.placeholder.com/300x200?text=Sanitary+Ware" alt="Sanitary">
-            <h4>Sanitary Ware</h4>
-        </div>
-
-        <div class="product-card">
-            <img src="https://via.placeholder.com/300x200?text=Cement" alt="Cement">
-            <h4>Cement</h4>
-        </div>
-
-        <div class="product-card">
-            <img src="https://via.placeholder.com/300x200?text=TMT+Rod" alt="TMT Rod">
-            <h4>TMT Rod</h4>
-        </div>
+        <div class="product-card">Cement</div>
+        <div class="product-card">TMT Rod</div>
+        <div class="product-card">Sanitary</div>
+        <div class="product-card">Pipes & Fittings</div>
     </div>
-
-    <p class="note">
-        *Product images are for reference only.
-    </p>
 </section>
 
-<section id="contact">
-    <h2>Contact</h2>
+<!-- CONTACT -->
+<section id="contact" class="section section-light">
+    <h2>Contact Us</h2>
     <p>Kapashbari, Hojai, Assam – 782445</p>
     <p>📞 9387127176</p>
     <p>✉ ms.surujhardware@gmail.com</p>
 </section>
 
 <!-- ADMIN LOGIN -->
-<section id="login">
+<section id="login" class="section section-blue">
     <h2>Admin Login</h2>
     <input id="adminPass" type="password" placeholder="Admin Password">
     <button onclick="login()">Login</button>
 </section>
 
 <!-- ADMIN PANEL -->
-<section id="adminPanel" class="hidden">
+<section id="adminPanel" class="section section-light hidden">
+
+<div id="invoice">
 
 <h3>Add Customer</h3>
 <input id="custName" placeholder="Customer Name">
@@ -90,7 +85,7 @@
 <textarea id="custAddress" placeholder="Address"></textarea>
 <button onclick="addCustomer()">Save Customer</button>
 
-<h3>Select Customer for Bill</h3>
+<h3>Select Customer</h3>
 <select id="customerSelect"></select>
 
 <h3>Add Product</h3>
@@ -118,17 +113,21 @@
 <p>Subtotal: ₹<span id="sub">0</span></p>
 <p>CGST (9%): ₹<span id="cgst">0</span></p>
 <p>SGST (9%): ₹<span id="sgst">0</span></p>
-<p><b>Total: ₹<span id="total">0</span></b></p>
+<p><b>Grand Total: ₹<span id="total">0</span></b></p>
 
 <button onclick="saveBill()">Save Bill</button>
+<button onclick="downloadPDF()">Download Bill PDF</button>
+
+</div>
 
 <h3>Audit Log</h3>
 <ul id="audit"></ul>
 
 <button onclick="logout()">Logout</button>
+
 </section>
 
-<!-- WHATSAPP -->
+<!-- WHATSAPP BUTTON -->
 <a href="https://wa.me/919957713500" class="whatsapp-float" target="_blank">💬</a>
 
 <footer>
