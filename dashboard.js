@@ -1,19 +1,22 @@
-/* ===================================================
-   DASHBOARD LOGIC – SURUJ HARDWARE
-   Auto Bill No | Bill History | Daily Summary
-   =================================================== */
+/* =====================================================
+   DASHBOARD.JS – M/S SURUJ HARDWARE
+   Fully Free | Website Only | Professional Billing
+   ===================================================== */
 
+/* -----------------------------
+   LOGIN CHECK
+----------------------------- */
 if (localStorage.getItem("loggedIn") !== "true") {
     window.location.href = "login.html";
 }
 
-/* -------------------------
+/* -----------------------------
    GLOBAL VARIABLES
-------------------------- */
+----------------------------- */
 let billItems = [];
 let subtotal = 0;
 
-// Load saved data
+// Load stored data
 let billHistory = JSON.parse(localStorage.getItem("billHistory")) || [];
 let billCounter = Number(localStorage.getItem("billCounter")) || 1;
 
@@ -21,9 +24,9 @@ let billCounter = Number(localStorage.getItem("billCounter")) || 1;
 document.getElementById("billDate").textContent =
     new Date().toLocaleString();
 
-/* -------------------------
-   ADD ITEM (MANUAL PRODUCT)
-------------------------- */
+/* -----------------------------
+   ADD ITEM TO BILL
+----------------------------- */
 function addItem() {
     const name = productName.value.trim();
     const rateVal = Number(rate.value);
@@ -31,18 +34,18 @@ function addItem() {
     const unitVal = unit.value;
 
     if (!name || rateVal <= 0 || qtyVal <= 0) {
-        alert("Enter product name, rate and quantity");
+        alert("Please enter product name, rate and quantity");
         return;
     }
 
     const amount = rateVal * qtyVal;
 
     billItems.push({
-        name,
+        name: name,
+        rate: rateVal,
         qty: qtyVal,
         unit: unitVal,
-        rate: rateVal,
-        amount
+        amount: amount
     });
 
     productName.value = "";
@@ -52,9 +55,9 @@ function addItem() {
     renderBill();
 }
 
-/* -------------------------
-   RENDER BILL
-------------------------- */
+/* -----------------------------
+   RENDER BILL TABLE
+----------------------------- */
 function renderBill() {
     billTable.innerHTML = "";
     subtotal = 0;
@@ -69,7 +72,9 @@ function renderBill() {
                 <td>${item.unit}</td>
                 <td>${item.rate}</td>
                 <td>${item.amount}</td>
-                <td><button onclick="removeItem(${index})">X</button></td>
+                <td>
+                    <button onclick="removeItem(${index})">X</button>
+                </td>
             </tr>
         `;
     });
@@ -77,17 +82,17 @@ function renderBill() {
     calculateTotal();
 }
 
-/* -------------------------
+/* -----------------------------
    REMOVE ITEM
-------------------------- */
+----------------------------- */
 function removeItem(index) {
     billItems.splice(index, 1);
     renderBill();
 }
 
-/* -------------------------
+/* -----------------------------
    CALCULATE TOTAL
-------------------------- */
+----------------------------- */
 function calculateTotal() {
     const discountVal = Number(discount.value) || 0;
 
@@ -99,16 +104,21 @@ function calculateTotal() {
     total.textContent = finalTotal.toFixed(2);
 }
 
-/* -------------------------
-   SAVE BILL (IMPORTANT)
-------------------------- */
+/* -----------------------------
+   SAVE BILL
+----------------------------- */
 function saveBill() {
     if (billItems.length === 0) {
-        alert("No items in bill");
+        alert("No items added to bill");
         return;
     }
 
-    const billNo = "SH-" + new Date().getFullYear() + "-" + String(billCounter).padStart(3, "0");
+    const billNo =
+        "SH-" +
+        new Date().getFullYear() +
+        "-" +
+        String(billCounter).padStart(3, "0");
+
     billCounter++;
     localStorage.setItem("billCounter", billCounter);
 
@@ -116,6 +126,8 @@ function saveBill() {
         billNo: billNo,
         date: new Date().toLocaleString(),
         customer: custName.value || "Walk-in Customer",
+        phone: custPhone.value || "-",
+        address: custAddress.value || "-",
         items: billItems,
         subtotal: subtotal,
         discount: Number(discount.value) || 0,
@@ -128,7 +140,7 @@ function saveBill() {
 
     alert("Bill Saved Successfully\nBill No: " + billNo);
 
-    // Reset bill
+    // Reset current bill
     billItems = [];
     billTable.innerHTML = "";
     discount.value = 0;
@@ -140,9 +152,9 @@ function saveBill() {
     updateTodaySummary();
 }
 
-/* -------------------------
-   BILL HISTORY DISPLAY
-------------------------- */
+/* -----------------------------
+   BILL HISTORY TABLE
+----------------------------- */
 function updateBillHistory() {
     billHistoryTable.innerHTML = "";
 
@@ -158,9 +170,9 @@ function updateBillHistory() {
     });
 }
 
-/* -------------------------
+/* -----------------------------
    DAILY TOTAL SUMMARY
-------------------------- */
+----------------------------- */
 function updateTodaySummary() {
     const today = new Date().toDateString();
     let todayTotal = 0;
@@ -171,13 +183,13 @@ function updateTodaySummary() {
         }
     });
 
-    todayTotalSpan = document.getElementById("todayTotal");
-    todayTotalSpan.textContent = todayTotal.toFixed(2);
+    document.getElementById("todayTotal").textContent =
+        todayTotal.toFixed(2);
 }
 
-/* -------------------------
-   PDF DOWNLOAD
-------------------------- */
+/* -----------------------------
+   DOWNLOAD FULL BILL PDF
+----------------------------- */
 function downloadPDF() {
     if (billHistory.length === 0) {
         alert("Save bill before downloading PDF");
@@ -192,16 +204,88 @@ function downloadPDF() {
     }).from(document.getElementById("invoice")).save();
 }
 
-/* -------------------------
+/* -----------------------------
+   DOWNLOAD SOLD ITEMS LIST PDF
+   (WITH PRICE & AMOUNT)
+----------------------------- */
+function downloadItemListPDF() {
+    if (billHistory.length === 0) {
+        alert("No saved bill found");
+        return;
+    }
+
+    const lastBill = billHistory[billHistory.length - 1];
+
+    const itemBox = document.createElement("div");
+    itemBox.style.padding = "20px";
+    itemBox.style.fontFamily = "Arial";
+
+    let html = `
+        <h2>M/S Suruj Hardware</h2>
+        <p><strong>Bill No:</strong> ${lastBill.billNo}</p>
+        <p><strong>Date:</strong> ${lastBill.date}</p>
+        <p><strong>Customer:</strong> ${lastBill.customer}</p>
+        <hr>
+
+        <h3>Items Sold</h3>
+        <table border="1" width="100%" cellspacing="0" cellpadding="8">
+            <tr>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Unit</th>
+                <th>Rate (₹)</th>
+                <th>Amount (₹)</th>
+            </tr>
+    `;
+
+    lastBill.items.forEach(item => {
+        html += `
+            <tr>
+                <td>${item.name}</td>
+                <td>${item.qty}</td>
+                <td>${item.unit}</td>
+                <td>${item.rate}</td>
+                <td>${item.amount}</td>
+            </tr>
+        `;
+    });
+
+    html += `
+        </table>
+
+        <p style="margin-top:12px;">
+            <strong>Total Amount:</strong> ₹ ${lastBill.total}
+        </p>
+
+        <p style="margin-top:15px;font-size:13px;">
+            Items mentioned above can be returned within 7 days.
+            Only selected items are eligible for return.
+        </p>
+    `;
+
+    itemBox.innerHTML = html;
+    document.body.appendChild(itemBox);
+
+    html2pdf().set({
+        margin: 10,
+        filename: lastBill.billNo + "_Sold_Items.pdf",
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
+    }).from(itemBox).save().then(() => {
+        document.body.removeChild(itemBox);
+    });
+}
+
+/* -----------------------------
    LOGOUT
-------------------------- */
+----------------------------- */
 function logout() {
     localStorage.removeItem("loggedIn");
     window.location.href = "login.html";
 }
 
-/* -------------------------
+/* -----------------------------
    INITIAL LOAD
-------------------------- */
+----------------------------- */
 updateBillHistory();
 updateTodaySummary();
