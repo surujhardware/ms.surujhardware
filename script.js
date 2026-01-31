@@ -1,150 +1,108 @@
-const ADMIN_MOBILE = "9387127176";
-const ADMIN_PASS = "Newaj@12";
+const ADMIN_PASSWORD = "Newaj@12";
 
 let products = JSON.parse(localStorage.getItem("products")) || [];
-let daily = JSON.parse(localStorage.getItem("daily")) || { sale:0, purchase:0, profit:0 };
-let monthly = JSON.parse(localStorage.getItem("monthly")) || { sale:0, purchase:0, profit:0 };
-let billCounter = Number(localStorage.getItem("billCounter")) || 1;
+let customers = JSON.parse(localStorage.getItem("customers")) || [];
+let auditLog = JSON.parse(localStorage.getItem("audit")) || [];
 
 let billTotal = 0;
-let billProfitValue = 0;
 
-/* NAVIGATION */
-function openAdmin() {
-    document.getElementById("roleSection").classList.add("hidden");
-    document.getElementById("adminLogin").classList.remove("hidden");
-}
-
-function openCustomer() {
-    document.getElementById("roleSection").classList.add("hidden");
-    document.getElementById("customerView").classList.remove("hidden");
-}
-
-function goHome() {
-    location.reload();
-}
-
-/* ADMIN LOGIN */
-function loginAdmin() {
-    const mobile = document.getElementById("adminMobile").value;
-    const pass = document.getElementById("adminPassword").value;
-
-    if (mobile === ADMIN_MOBILE && pass === ADMIN_PASS) {
-        document.getElementById("adminLogin").classList.add("hidden");
-        document.getElementById("adminPanel").classList.remove("hidden");
+function login() {
+    if (adminPass.value === ADMIN_PASSWORD) {
+        loginSection = document.getElementById("login");
+        loginSection.classList.add("hidden");
+        adminPanel.classList.remove("hidden");
         loadProducts();
-        updateDaily();
-        updateMonthly();
-        setBillInfo();
-    } else {
-        alert("Invalid admin login");
-    }
+        loadCustomers();
+        loadStock();
+        loadAudit();
+    } else alert("Wrong password");
 }
 
-/* BILL INFO */
-function setBillInfo() {
-    document.getElementById("billNo").textContent = billCounter;
-    document.getElementById("billDate").textContent = new Date().toLocaleDateString();
+function addCustomer() {
+    customers.push({
+        name: custName.value,
+        phone: custPhone.value,
+        address: custAddress.value
+    });
+    localStorage.setItem("customers", JSON.stringify(customers));
+    custName.value = custPhone.value = custAddress.value = "";
+    loadCustomers();
 }
 
-/* PRODUCT MASTER */
-function addProduct() {
-    const name = pname.value;
-    const buy = Number(buyPrice.value);
-    const sell = Number(sellPrice.value);
-
-    if (!name || !buy || !sell) return;
-
-    products.push({ name, buy, sell });
-    localStorage.setItem("products", JSON.stringify(products));
-
-    pname.value = buyPrice.value = sellPrice.value = "";
-    loadProducts();
-}
-
-function loadProducts() {
-    const select = document.getElementById("productSelect");
-    select.innerHTML = "<option value=''>Select Product</option>";
-    products.forEach((p, i) => {
-        select.innerHTML += `<option value="${i}">${p.name}</option>`;
+function loadCustomers() {
+    customerSelect.innerHTML = "<option value=''>Select Customer</option>";
+    customers.forEach((c,i)=>{
+        customerSelect.innerHTML += `<option value="${i}">${c.name}</option>`;
     });
 }
 
-/* BILLING */
-function addToBag() {
-    const index = productSelect.value;
-    const quantity = Number(qty.value);
+function addProduct() {
+    products.push({
+        name: pname.value,
+        price: +price.value,
+        stock: +stock.value
+    });
+    localStorage.setItem("products", JSON.stringify(products));
+    pname.value = price.value = stock.value = "";
+    loadProducts();
+    loadStock();
+}
 
-    if (index === "" || quantity <= 0) return;
+function loadProducts() {
+    plist.innerHTML = "";
+    products.forEach((p,i)=>{
+        plist.innerHTML += `<option value="${i}">${p.name}</option>`;
+    });
+}
 
-    const p = products[index];
-    const itemTotal = p.sell * quantity;
-    const itemProfit = (p.sell - p.buy) * quantity;
+function loadStock() {
+    stockTable.innerHTML = "";
+    products.forEach(p=>{
+        stockTable.innerHTML += `<tr><td>${p.name}</td><td>${p.stock}</td><td>${p.price}</td></tr>`;
+    });
+}
 
-    billTotal += itemTotal;
-    billProfitValue += itemProfit;
+function addBill() {
+    let p = products[plist.value];
+    let q = +qty.value;
+    if (q > p.stock) return alert("Low stock");
 
-    const li = document.createElement("li");
-    li.textContent = `${p.name} × ${quantity} = ₹${itemTotal}`;
-    bag.appendChild(li);
+    let amt = p.price * q;
+    billTotal += amt;
+    p.stock -= q;
 
+    billTable.innerHTML += `<tr><td>${p.name}</td><td>${q}</td><td>${amt}</td></tr>`;
     updateBill();
+    localStorage.setItem("products", JSON.stringify(products));
+    loadStock();
 }
 
 function updateBill() {
-    const gst = billTotal * Number(gstRate.value) / 100;
-    subTotal.textContent = billTotal.toFixed(2);
-    gstAmount.textContent = gst.toFixed(2);
-    grandTotal.textContent = (billTotal + gst).toFixed(2);
-    billProfit.textContent = billProfitValue.toFixed(2);
+    let cgstVal = billTotal * 0.09;
+    let sgstVal = billTotal * 0.09;
+    sub.textContent = billTotal.toFixed(2);
+    cgst.textContent = cgstVal.toFixed(2);
+    sgst.textContent = sgstVal.toFixed(2);
+    total.textContent = (billTotal + cgstVal + sgstVal).toFixed(2);
 }
 
-/* SAVE BILL */
 function saveBill() {
-    const gst = billTotal * Number(gstRate.value) / 100;
-    const grand = billTotal + gst;
+    let customer = customerSelect.value ? customers[customerSelect.value].name : "Walk-in";
+    auditLog.push(`Bill for ${customer} on ${new Date().toLocaleString()}`);
+    localStorage.setItem("audit", JSON.stringify(auditLog));
 
-    daily.sale += grand;
-    daily.purchase += billTotal - billProfitValue;
-    daily.profit += billProfitValue;
-
-    monthly.sale += grand;
-    monthly.purchase += billTotal - billProfitValue;
-    monthly.profit += billProfitValue;
-
-    localStorage.setItem("daily", JSON.stringify(daily));
-    localStorage.setItem("monthly", JSON.stringify(monthly));
-
-    billCounter++;
-    localStorage.setItem("billCounter", billCounter);
-
-    bag.innerHTML = "";
+    billTable.innerHTML = "";
     billTotal = 0;
-    billProfitValue = 0;
-
     updateBill();
-    updateDaily();
-    updateMonthly();
-    setBillInfo();
-
-    alert("Bill saved successfully");
+    loadAudit();
+    alert("Bill saved");
 }
 
-/* REPORTS */
-function updateDaily() {
-    sale.textContent = daily.sale.toFixed(2);
-    purchase.textContent = daily.purchase.toFixed(2);
-    profit.textContent = daily.profit.toFixed(2);
+function loadAudit() {
+    audit.innerHTML = "";
+    auditLog.forEach(a => audit.innerHTML += `<li>${a}</li>`);
 }
 
-function updateMonthly() {
-    mSale.textContent = monthly.sale.toFixed(2);
-    mPurchase.textContent = monthly.purchase.toFixed(2);
-    mProfit.textContent = monthly.profit.toFixed(2);
-}
-
-/* PDF */
-function downloadPDF() {
-    html2pdf().from(document.getElementById("invoice"))
-        .save(`Bill_${billCounter}.pdf`);
+function logout() {
+    location.reload();
 }

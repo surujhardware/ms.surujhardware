@@ -2,92 +2,138 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>M/S Suruj Hardware</title>
+<title>MS Suruj Hardware</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <link rel="stylesheet" href="style.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
-<!-- VERY IMPORTANT -->
 <script src="script.js" defer></script>
 </head>
 <body>
 
-<div class="header">
-    <marquee>M/S SURUJ HARDWARE • CEMENT • ROD • SANITARY • ELECTRICAL</marquee>
+<!-- SCROLLING WELCOME -->
+<div class="welcome-bar">
+    <div class="welcome-text">
+        Welcome to MS Suruj Hardware – Trusted supplier of quality construction and hardware materials
+    </div>
 </div>
 
-<div class="container" id="invoice">
+<!-- NAVIGATION -->
+<nav>
+    <div class="logo">MS Suruj Hardware</div>
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#gallery">Products</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#login">Admin</a></li>
+    </ul>
+</nav>
 
-<h2>M/S Suruj Hardware</h2>
-<p class="helpline">Helpline: 9387127176</p>
+<section id="home">
+    <h1>MS Suruj Hardware</h1>
+    <p>Trusted supplier of construction and hardware materials at fair prices.</p>
+</section>
 
-<!-- ROLE SELECTION -->
-<div id="roleSection">
-    <button onclick="openAdmin()">Admin</button>
-    <button onclick="openCustomer()">Customer</button>
-</div>
+<section id="about">
+    <h2>About Us</h2>
+    <p>
+        MS Suruj Hardware is a local hardware store serving customers with quality construction
+        and hardware materials. Honest business and customer satisfaction are our priorities.
+    </p>
+</section>
+
+<!-- PRODUCT IMAGE GALLERY -->
+<section id="gallery">
+    <h2>Our Products</h2>
+
+    <div class="product-grid">
+        <div class="product-card">
+            <img src="https://via.placeholder.com/300x200?text=Sanitary+Ware" alt="Sanitary">
+            <h4>Sanitary Ware</h4>
+        </div>
+
+        <div class="product-card">
+            <img src="https://via.placeholder.com/300x200?text=Cement" alt="Cement">
+            <h4>Cement</h4>
+        </div>
+
+        <div class="product-card">
+            <img src="https://via.placeholder.com/300x200?text=TMT+Rod" alt="TMT Rod">
+            <h4>TMT Rod</h4>
+        </div>
+    </div>
+
+    <p class="note">
+        *Product images are for reference only.
+    </p>
+</section>
+
+<section id="contact">
+    <h2>Contact</h2>
+    <p>Kapashbari, Hojai, Assam – 782445</p>
+    <p>📞 9387127176</p>
+    <p>✉ ms.surujhardware@gmail.com</p>
+</section>
 
 <!-- ADMIN LOGIN -->
-<div id="adminLogin" class="hidden">
-    <input id="adminMobile" placeholder="Admin Mobile">
-    <input id="adminPassword" type="password" placeholder="Password">
-    <button onclick="loginAdmin()">Login</button>
-    <button onclick="goHome()">Back</button>
-</div>
-
-<!-- CUSTOMER VIEW -->
-<div id="customerView" class="hidden">
-    <h3>Welcome Customer</h3>
-    <p>Billing is done at counter.</p>
-    <button onclick="goHome()">Back</button>
-</div>
+<section id="login">
+    <h2>Admin Login</h2>
+    <input id="adminPass" type="password" placeholder="Admin Password">
+    <button onclick="login()">Login</button>
+</section>
 
 <!-- ADMIN PANEL -->
-<div id="adminPanel" class="hidden">
+<section id="adminPanel" class="hidden">
 
-<h3>Bill Info</h3>
-<p>Bill No: <span id="billNo"></span></p>
-<p>Date: <span id="billDate"></span></p>
+<h3>Add Customer</h3>
+<input id="custName" placeholder="Customer Name">
+<input id="custPhone" placeholder="Phone Number">
+<textarea id="custAddress" placeholder="Address"></textarea>
+<button onclick="addCustomer()">Save Customer</button>
 
-<h3>GST (%)</h3>
-<input type="number" id="gstRate" value="18">
+<h3>Select Customer for Bill</h3>
+<select id="customerSelect"></select>
 
 <h3>Add Product</h3>
 <input id="pname" placeholder="Product Name">
-<input id="buyPrice" type="number" placeholder="Buying Price">
-<input id="sellPrice" type="number" placeholder="Selling Price">
+<input id="price" type="number" placeholder="Price">
+<input id="stock" type="number" placeholder="Stock">
 <button onclick="addProduct()">Add Product</button>
 
+<h3>Stock Overview</h3>
+<table>
+<tr><th>Product</th><th>Stock</th><th>Price</th></tr>
+<tbody id="stockTable"></tbody>
+</table>
+
 <h3>Billing</h3>
-<select id="productSelect"></select>
+<select id="plist"></select>
 <input id="qty" type="number" placeholder="Quantity">
-<button onclick="addToBag()">Add to Bag</button>
+<button onclick="addBill()">Add to Bill</button>
 
-<ul id="bag"></ul>
+<table>
+<tr><th>Item</th><th>Qty</th><th>Amount</th></tr>
+<tbody id="billTable"></tbody>
+</table>
 
-<p>Subtotal: ₹<span id="subTotal">0</span></p>
-<p>GST: ₹<span id="gstAmount">0</span></p>
-<p><b>Grand Total: ₹<span id="grandTotal">0</span></b></p>
-<p>Profit: ₹<span id="billProfit">0</span></p>
+<p>Subtotal: ₹<span id="sub">0</span></p>
+<p>CGST (9%): ₹<span id="cgst">0</span></p>
+<p>SGST (9%): ₹<span id="sgst">0</span></p>
+<p><b>Total: ₹<span id="total">0</span></b></p>
 
 <button onclick="saveBill()">Save Bill</button>
-<button onclick="downloadPDF()">Download PDF</button>
 
-<h3>Daily Report</h3>
-<p>Sale: ₹<span id="sale">0</span></p>
-<p>Purchase: ₹<span id="purchase">0</span></p>
-<p>Profit: ₹<span id="profit">0</span></p>
+<h3>Audit Log</h3>
+<ul id="audit"></ul>
 
-<h3>Monthly Report</h3>
-<p>Sale: ₹<span id="mSale">0</span></p>
-<p>Purchase: ₹<span id="mPurchase">0</span></p>
-<p>Profit: ₹<span id="mProfit">0</span></p>
+<button onclick="logout()">Logout</button>
+</section>
 
-<button onclick="goHome()">Logout</button>
+<!-- WHATSAPP -->
+<a href="https://wa.me/919957713500" class="whatsapp-float" target="_blank">💬</a>
 
-</div>
-</div>
+<footer>
+    <p>© MS Suruj Hardware</p>
+</footer>
 
 </body>
 </html>
