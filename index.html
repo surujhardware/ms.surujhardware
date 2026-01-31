@@ -100,10 +100,59 @@
 <tbody id="stockTable"></tbody>
 </table>
 
-<h3>Billing</h3>
+<div id="invoice">
+
+<h2>MS Suruj Hardware</h2>
+<p>Kapashbari, Hojai, Assam – 782445</p>
+<p>Phone: 9387127176</p>
+<hr>
+
+<h3>Customer Details</h3>
+<p><b>Name:</b> <span id="billCustName"></span></p>
+<p><b>Phone:</b> <span id="billCustPhone"></span></p>
+<p><b>Address:</b> <span id="billCustAddress"></span></p>
+<p><b>Date:</b> <span id="billDate"></span></p>
+
+<hr>
+
+<h3>Add Item</h3>
 <select id="plist"></select>
 <input id="qty" type="number" placeholder="Quantity">
-<button onclick="addBill()">Add to Bill</button>
+<select id="unit">
+  <option value="pcs">Pieces</option>
+  <option value="quintal">Quintal</option>
+</select>
+<button onclick="addBill()">Add Item</button>
+
+<table>
+<tr>
+  <th>Item</th><th>Qty</th><th>Unit</th><th>Amount</th><th>Action</th>
+</tr>
+<tbody id="billTable"></tbody>
+</table>
+
+<p>Subtotal: ₹<span id="sub">0</span></p>
+
+<label>Discount (₹)</label>
+<input id="discount" type="number" value="0" oninput="updateBill()">
+
+<p>CGST (9%): ₹<span id="cgst">0</span></p>
+<p>SGST (9%): ₹<span id="sgst">0</span></p>
+
+<p><b>Grand Total: ₹<span id="total">0</span></b></p>
+
+<label>Payment Mode</label>
+<select id="paymentMode">
+  <option value="Cash">Cash</option>
+  <option value="UPI">UPI</option>
+</select>
+
+<p><b>Payment:</b> <span id="billPayment"></span></p>
+
+</div>
+
+<button onclick="saveBill()">Save Bill</button>
+<button onclick="downloadPDF()">Download PDF</button>
 
 <table>
 <tr><th>Item</th><th>Qty</th><th>Amount</th></tr>

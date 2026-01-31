@@ -4,34 +4,21 @@ let products = JSON.parse(localStorage.getItem("products")) || [];
 let customers = JSON.parse(localStorage.getItem("customers")) || [];
 let auditLog = JSON.parse(localStorage.getItem("audit")) || [];
 
+let billItems = [];
 let billTotal = 0;
 
-/* LOGIN */
 function login() {
     if (adminPass.value === ADMIN_PASSWORD) {
         document.getElementById("login").classList.add("hidden");
         document.getElementById("adminPanel").classList.remove("hidden");
         loadProducts();
         loadCustomers();
-        loadStock();
-        loadAudit();
-    } else {
-        alert("Wrong password");
-    }
+        document.getElementById("billDate").textContent =
+            new Date().toLocaleString();
+    } else alert("Wrong password");
 }
 
 /* CUSTOMER */
-function addCustomer() {
-    customers.push({
-        name: custName.value,
-        phone: custPhone.value,
-        address: custAddress.value
-    });
-    localStorage.setItem("customers", JSON.stringify(customers));
-    custName.value = custPhone.value = custAddress.value = "";
-    loadCustomers();
-}
-
 function loadCustomers() {
     customerSelect.innerHTML = "<option value=''>Select Customer</option>";
     customers.forEach((c,i)=>{
@@ -40,18 +27,6 @@ function loadCustomers() {
 }
 
 /* PRODUCTS */
-function addProduct() {
-    products.push({
-        name: pname.value,
-        price: +price.value,
-        stock: +stock.value
-    });
-    localStorage.setItem("products", JSON.stringify(products));
-    pname.value = price.value = stock.value = "";
-    loadProducts();
-    loadStock();
-}
-
 function loadProducts() {
     plist.innerHTML = "";
     products.forEach((p,i)=>{
@@ -59,70 +34,85 @@ function loadProducts() {
     });
 }
 
-function loadStock() {
-    stockTable.innerHTML = "";
-    products.forEach(p=>{
-        stockTable.innerHTML += `<tr><td>${p.name}</td><td>${p.stock}</td><td>${p.price}</td></tr>`;
-    });
-}
-
-/* BILLING */
+/* ADD ITEM */
 function addBill() {
-    let p = products[plist.value];
-    let q = +qty.value;
+    const p = products[plist.value];
+    const q = Number(qty.value);
+    const u = unit.value;
 
-    if (q > p.stock) return alert("Low stock");
+    if (q <= 0 || q > p.stock) {
+        alert("Invalid quantity");
+        return;
+    }
 
-    let amt = p.price * q;
-    billTotal += amt;
+    const amt = p.price * q;
     p.stock -= q;
 
-    billTable.innerHTML += `<tr><td>${p.name}</td><td>${q}</td><td>${amt}</td></tr>`;
-    updateBill();
-
+    billItems.push({ name: p.name, qty: q, unit: u, amount: amt });
     localStorage.setItem("products", JSON.stringify(products));
-    loadStock();
+
+    renderBill();
 }
 
+function removeItem(index) {
+    const item = billItems[index];
+    const p = products.find(x => x.name === item.name);
+    p.stock += item.qty;
+
+    billItems.splice(index,1);
+    localStorage.setItem("products", JSON.stringify(products));
+    renderBill();
+}
+
+/* RENDER BILL */
+function renderBill() {
+    billTable.innerHTML = "";
+    billTotal = 0;
+
+    billItems.forEach((item,i)=>{
+        billTotal += item.amount;
+        billTable.innerHTML += `
+        <tr>
+          <td>${item.name}</td>
+          <td>${item.qty}</td>
+          <td>${item.unit}</td>
+          <td>${item.amount}</td>
+          <td><button onclick="removeItem(${i})">Remove</button></td>
+        </tr>`;
+    });
+
+    updateBill();
+}
+
+/* CALCULATE TOTAL */
 function updateBill() {
-    let cg = billTotal * 0.09;
-    let sg = billTotal * 0.09;
+    const discountVal = Number(discount.value) || 0;
+    const taxable = Math.max(billTotal - discountVal, 0);
+    const cg = taxable * 0.09;
+    const sg = taxable * 0.09;
+
     sub.textContent = billTotal.toFixed(2);
     cgst.textContent = cg.toFixed(2);
     sgst.textContent = sg.toFixed(2);
-    total.textContent = (billTotal + cg + sg).toFixed(2);
+    total.textContent = (taxable + cg + sg).toFixed(2);
 }
 
 /* SAVE BILL */
 function saveBill() {
-    let customer = customerSelect.value
-        ? customers[customerSelect.value].name
-        : "Walk-in";
+    const c = customers[customerSelect.value];
+    billCustName.textContent = c.name;
+    billCustPhone.textContent = c.phone;
+    billCustAddress.textContent = c.address;
+    billPayment.textContent = paymentMode.value;
 
-    auditLog.push(`Bill for ${customer} on ${new Date().toLocaleString()}`);
+    auditLog.push(`Bill for ${c.name} on ${new Date().toLocaleString()}`);
     localStorage.setItem("audit", JSON.stringify(auditLog));
-
-    billTable.innerHTML = "";
-    billTotal = 0;
-    updateBill();
-    loadAudit();
 
     alert("Bill saved");
 }
 
-/* PDF DOWNLOAD */
+/* PDF */
 function downloadPDF() {
     const element = document.getElementById("invoice");
     html2pdf().from(element).save("MS_Suruj_Hardware_Bill.pdf");
-}
-
-/* AUDIT */
-function loadAudit() {
-    audit.innerHTML = "";
-    auditLog.forEach(a => audit.innerHTML += `<li>${a}</li>`);
-}
-
-/* LOGOUT */
-function logout() {
-    location.reload();
 }
