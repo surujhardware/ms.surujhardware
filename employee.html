@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Employee Attendance</title>
+<link rel="stylesheet" href="style.css">
+<script src="employee.js" defer></script>
+</head>
+<body>
+
+<section class="section section-light">
+
+<h2>Employee Attendance & Salary</h2>
+
+<!-- ADD EMPLOYEE -->
+<h3>Add Employee</h3>
+<input id="empName" placeholder="Employee Name">
+<input id="empSalary" type="number" placeholder="Monthly Salary (₹)">
+<button onclick="addEmployee()">Add Employee</button>
+
+<hr>
+
+<!-- EMPLOYEE LIST -->
+<h3>Employee List</h3>
+<table class="bill-table">
+<thead>
+<tr>
+    <th>Name</th>
+    <th>Salary</th>
+    <th>Attendance</th>
+    <th>Salary Status</th>
+    <th>Action</th>
+</tr>
+</thead>
+<tbody id="empTable"></tbody>
+</table>
+
+<button onclick="logout()">Back</button>
+
+</section>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Employee Attendance - Lock</title>
+<link rel="stylesheet" href="style.css">
+<script>
+function unlock() {
+    const pass = document.getElementById("lockPass").value;
+    if (pass === "Newaj@12") {
+        window.location.href = "employee.html";
+    } else {
+        alert("Wrong password");
+    }
+}
+</script>
+</head>
+<body>
+
+<section class="section section-primary login-box">
+    <h2>🔒 Employee Attendance</h2>
+    <input id="lockPass" type="password" placeholder="Enter Password">
+    <button onclick="unlock()">Unlock</button>
+</section>
+
+</body>
+</html>
