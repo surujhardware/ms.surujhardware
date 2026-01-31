@@ -6,6 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="stylesheet" href="style.css">
+
+<!-- PDF Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script src="dashboard.js" defer></script>
 </head>
@@ -13,63 +15,118 @@
 
 <section class="section section-light">
 
+<!-- ================= INVOICE & BILLING ================= -->
 <div id="invoice" class="invoice-box">
 
-<h2>M/S Suruj Hardware</h2>
-<p>Kapashbari, Hojai, Assam – 782445</p>
-<p>Phone: 9387127176</p>
-<hr>
+    <!-- SHOP DETAILS -->
+    <div class="invoice-header">
+        <h2>M/S Suruj Hardware</h2>
+        <p>Kapashbari, Hojai, Assam – 782445</p>
+        <p>Phone: 9387127176</p>
+    </div>
 
-<h3>Customer Details</h3>
-<input id="custName" placeholder="Customer Name">
-<input id="custPhone" placeholder="Customer Phone">
-<textarea id="custAddress" placeholder="Customer Address"></textarea>
+    <hr>
 
-<p><strong>Date:</strong> <span id="billDate"></span></p>
+    <!-- BILL INFO -->
+    <p><strong>Bill Date:</strong> <span id="billDate"></span></p>
 
-<hr>
+    <hr>
 
-<h3>Add Item</h3>
-<select id="plist"></select>
-<input id="qty" type="number" placeholder="Quantity">
+    <!-- CUSTOMER DETAILS -->
+    <h3>Customer Details</h3>
+    <input id="custName" placeholder="Customer Name">
+    <input id="custPhone" placeholder="Customer Phone Number">
+    <textarea id="custAddress" placeholder="Customer Address"></textarea>
 
-<select id="unit">
-    <option>Pieces</option>
-    <option>Bags</option>
-    <option>Quintal</option>
-</select>
+    <hr>
 
-<button onclick="addItem()">Add Item</button>
+    <!-- ADD ITEM -->
+    <h3>Add Item to Bill</h3>
 
-<table class="bill-table">
-<thead>
-<tr>
-    <th>Item</th><th>Qty</th><th>Unit</th><th>Amount</th><th>Remove</th>
-</tr>
-</thead>
-<tbody id="billTable"></tbody>
-</table>
+    <input id="productName" placeholder="Product Name (e.g. Cement)">
+    <input id="rate" type="number" placeholder="Rate per unit (₹)">
+    <input id="qty" type="number" placeholder="Quantity">
 
-<p>Subtotal: ₹ <span id="sub">0</span></p>
+    <select id="unit">
+        <option>Pieces</option>
+        <option>Bags</option>
+        <option>Quintal</option>
+    </select>
 
-<label>Discount (₹)</label>
-<input id="discount" type="number" value="0" oninput="calculateTotal()">
+    <button onclick="addItem()">Add Item</button>
 
-<p><strong>Total: ₹ <span id="total">0</span></strong></p>
+    <!-- BILL TABLE -->
+    <table class="bill-table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Unit</th>
+                <th>Rate (₹)</th>
+                <th>Amount (₹)</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+        <tbody id="billTable"></tbody>
+    </table>
 
-<label>Payment Mode</label>
-<select id="paymentMode">
-    <option>Cash</option>
-    <option>UPI</option>
-</select>
+    <!-- BILL SUMMARY -->
+    <div class="invoice-summary">
+        <p>Subtotal: ₹ <span id="sub">0</span></p>
+
+        <label>Discount (₹)</label>
+        <input id="discount" type="number" value="0" oninput="calculateTotal()">
+
+        <p><strong>Total Amount: ₹ <span id="total">0</span></strong></p>
+
+        <label>Payment Mode</label>
+        <select id="paymentMode">
+            <option>Cash</option>
+            <option>UPI</option>
+        </select>
+    </div>
+
+    <!-- RETURN POLICY -->
+    <p style="margin-top:15px;font-size:14px;">
+        <strong>Return Policy:</strong>
+        Items mentioned above can be returned within 7 days.
+        Only selected items are eligible for return.
+    </p>
 
 </div>
+<!-- ================= END INVOICE ================= -->
 
+<!-- ACTION BUTTONS -->
 <div class="panel-actions">
     <button onclick="saveBill()">Save Bill</button>
-    <button onclick="downloadPDF()">Download PDF</button>
+    <button onclick="downloadPDF()">Download Bill PDF</button>
     <button onclick="logout()">Logout</button>
 </div>
+
+<hr>
+
+<!-- ================= DAILY SUMMARY ================= -->
+<h3>Today’s Sale Summary</h3>
+<p>
+    <strong>Total Sale Today:</strong>
+    ₹ <span id="todayTotal">0</span>
+</p>
+
+<hr>
+
+<!-- ================= BILL HISTORY ================= -->
+<h3>Bill History</h3>
+<table class="bill-table">
+    <thead>
+        <tr>
+            <th>Bill No</th>
+            <th>Date</th>
+            <th>Customer</th>
+            <th>Total (₹)</th>
+        </tr>
+    </thead>
+    <tbody id="billHistoryTable"></tbody>
+</table>
 
 </section>
 
