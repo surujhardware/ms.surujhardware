@@ -7,76 +7,50 @@
 
 <link rel="stylesheet" href="style.css">
 
-<!-- PDF library (FREE) -->
+<!-- PDF Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<script src="script.js" defer></script>
+<script defer src="script.js"></script>
 </head>
 <body>
 
-<!-- ONE-LINE SCROLLING WELCOME -->
+<!-- SCROLLING WELCOME -->
 <div class="welcome-bar">
     <div class="welcome-text">
-        Welcome to MS Suruj Hardware • Cement • TMT Rod • Sanitary • Pipes • Trusted Local Hardware Store
+        Welcome to MS Suruj Hardware • Cement • Rod • Sanitary • Pipes • Trusted Local Store
     </div>
 </div>
 
-<!-- NAVIGATION -->
 <nav>
     <div class="logo">MS Suruj Hardware</div>
     <ul>
         <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#products">Products</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><a href="#login">Admin</a></li>
+        <li><a href="#login">Manager Login</a></li>
     </ul>
 </nav>
 
-<!-- HOME -->
 <section id="home" class="section section-blue">
     <h1>MS Suruj Hardware</h1>
-    <p>Trusted supplier of quality construction and hardware materials.</p>
+    <p>Trusted supplier of construction and hardware materials.</p>
 </section>
 
-<!-- ABOUT -->
-<section id="about" class="section section-light">
-    <h2>About Us</h2>
-    <p>
-        MS Suruj Hardware is a local hardware store serving customers with quality construction
-        and hardware materials. Honest business and customer satisfaction are our priorities.
-    </p>
-</section>
-
-<!-- PRODUCTS -->
-<section id="products" class="section section-green">
-    <h2>Products</h2>
-    <ul>
-        <li>Cement</li>
-        <li>TMT Rod</li>
-        <li>Sanitary</li>
-        <li>Pipes & Fittings</li>
-    </ul>
-</section>
-
-<!-- CONTACT -->
 <section id="contact" class="section section-light">
     <h2>Contact</h2>
     <p>Kapashbari, Hojai, Assam – 782445</p>
     <p>📞 9387127176</p>
-    <p>✉ ms.surujhardware@gmail.com</p>
 </section>
 
-<!-- ADMIN LOGIN -->
+<!-- LOGIN -->
 <section id="login" class="section section-blue">
-    <h2>Admin Login</h2>
-    <input id="adminPass" type="password" placeholder="Admin Password">
+    <h2>Manager Login</h2>
+    <input id="username" placeholder="Mobile Number">
+    <input id="password" type="password" placeholder="Password">
     <button onclick="login()">Login</button>
 </section>
 
-<!-- ADMIN PANEL -->
-<section id="adminPanel" class="section section-light hidden">
+<!-- PANEL -->
+<section id="panel" class="section section-light hidden">
 
-<!-- INVOICE START -->
 <div id="invoice">
 
 <h2>MS Suruj Hardware</h2>
@@ -85,75 +59,53 @@
 <hr>
 
 <h3>Customer Details</h3>
-<select id="customerSelect"></select>
+<input id="custName" placeholder="Customer Name">
+<input id="custPhone" placeholder="Customer Phone">
+<textarea id="custAddress" placeholder="Customer Address"></textarea>
 
-<p><b>Name:</b> <span id="billCustName">Walk-in Customer</span></p>
-<p><b>Phone:</b> <span id="billCustPhone">-</span></p>
-<p><b>Address:</b> <span id="billCustAddress">-</span></p>
 <p><b>Date:</b> <span id="billDate"></span></p>
-
 <hr>
 
 <h3>Add Item</h3>
-
 <select id="plist"></select>
-
 <input id="qty" type="number" placeholder="Quantity">
 
-<!-- UNIT SELECTION (UPDATED WITH BAGS) -->
 <select id="unit">
-    <option value="pcs">Pieces</option>
-    <option value="bags">Bags</option>
-    <option value="quintal">Quintal</option>
+    <option>Pieces</option>
+    <option>Bags</option>
+    <option>Quintal</option>
 </select>
 
-<button onclick="addBill()">Add Item</button>
+<button onclick="addItem()">Add Item</button>
 
 <table>
-<thead>
 <tr>
-    <th>Item</th>
-    <th>Qty</th>
-    <th>Unit</th>
-    <th>Amount</th>
-    <th>Action</th>
+    <th>Item</th><th>Qty</th><th>Unit</th><th>Amount</th><th>❌</th>
 </tr>
-</thead>
 <tbody id="billTable"></tbody>
 </table>
 
 <p>Subtotal: ₹<span id="sub">0</span></p>
 
 <label>Discount (₹)</label>
-<input id="discount" type="number" value="0" oninput="updateBill()">
+<input id="discount" type="number" value="0" oninput="calculateTotal()">
 
-<p>CGST (9%): ₹<span id="cgst">0</span></p>
-<p>SGST (9%): ₹<span id="sgst">0</span></p>
-
-<p><b>Grand Total: ₹<span id="total">0</span></b></p>
+<p><b>Total Amount: ₹<span id="total">0</span></b></p>
 
 <label>Payment Mode</label>
 <select id="paymentMode">
-    <option value="Cash">Cash</option>
-    <option value="UPI">UPI</option>
+    <option>Cash</option>
+    <option>UPI</option>
 </select>
 
-<p><b>Payment:</b> <span id="billPayment">Cash</span></p>
-
 </div>
-<!-- INVOICE END -->
 
 <button onclick="saveBill()">Save Bill</button>
-<button onclick="downloadPDF()">Download Bill PDF</button>
-
-<h3>Audit Log</h3>
-<ul id="audit"></ul>
-
+<button onclick="downloadPDF()">Download PDF</button>
 <button onclick="logout()">Logout</button>
 
 </section>
 
-<!-- WHATSAPP BUTTON -->
 <a href="https://wa.me/919957713500" class="whatsapp-float" target="_blank">💬</a>
 
 <footer>
