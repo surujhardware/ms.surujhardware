@@ -1,115 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>MS Suruj Hardware</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>M/S Suruj Hardware</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="style.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="style.css">
 
-<!-- PDF Library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<script defer src="script.js"></script>
+    <!-- PDF LIBRARY -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <!-- MAIN SCRIPT -->
+    <script src="script.js" defer></script>
 </head>
+
 <body>
 
-<!-- SCROLLING WELCOME -->
+<!-- ===================== -->
+<!-- WELCOME SCROLL BAR -->
+<!-- ===================== -->
 <div class="welcome-bar">
     <div class="welcome-text">
-        Welcome to MS Suruj Hardware • Cement • Rod • Sanitary • Pipes • Trusted Local Store
+        Welcome to M/S Suruj Hardware • Cement • TMT Rod • Sanitary • Pipes • Trusted Local Hardware Store • Fair Price • Quality Materials
     </div>
 </div>
 
-<nav>
-    <div class="logo">MS Suruj Hardware</div>
-    <ul>
+<!-- ===================== -->
+<!-- NAVIGATION BAR -->
+<!-- ===================== -->
+<nav class="main-nav">
+    <div class="nav-logo">
+        M/S Suruj Hardware
+    </div>
+    <ul class="nav-links">
         <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#products">Products</a></li>
         <li><a href="#contact">Contact</a></li>
         <li><a href="#login">Manager Login</a></li>
     </ul>
 </nav>
 
-<section id="home" class="section section-blue">
-    <h1>MS Suruj Hardware</h1>
-    <p>Trusted supplier of construction and hardware materials.</p>
+<!-- ===================== -->
+<!-- HOME SECTION -->
+<!-- ===================== -->
+<section id="home" class="section section-primary">
+    <h1>M/S Suruj Hardware</h1>
+    <p>
+        M/S Suruj Hardware is a trusted supplier of construction and hardware materials.
+        We serve houses, shops, and commercial buildings with reliable products at reasonable prices.
+    </p>
 </section>
 
-<section id="contact" class="section section-light">
-    <h2>Contact</h2>
-    <p>Kapashbari, Hojai, Assam – 782445</p>
-    <p>📞 9387127176</p>
+<!-- ===================== -->
+<!-- ABOUT SECTION -->
+<!-- ===================== -->
+<section id="about" class="section section-secondary">
+    <h2>About Us</h2>
+    <p>
+        M/S Suruj Hardware is a local hardware store located in Kapashbari, Hojai, Assam.
+        Our aim is to provide strong, durable, and genuine construction materials.
+        We believe in honest business, fair pricing, and long-term customer trust.
+    </p>
 </section>
 
-<!-- LOGIN -->
-<section id="login" class="section section-blue">
+<!-- ===================== -->
+<!-- PRODUCTS SECTION -->
+<!-- ===================== -->
+<section id="products" class="section section-accent">
+    <h2>Our Products</h2>
+
+    <div class="product-list">
+        <div class="product-box">Cement</div>
+        <div class="product-box">TMT Rod</div>
+        <div class="product-box">Sand & Bricks</div>
+        <div class="product-box">Stone Chips</div>
+        <div class="product-box">Sanitary Ware</div>
+        <div class="product-box">Pipes & Fittings</div>
+        <div class="product-box">Electrical Items</div>
+        <div class="product-box">Tools & Equipment</div>
+    </div>
+</section>
+
+<!-- ===================== -->
+<!-- CONTACT SECTION -->
+<!-- ===================== -->
+<section id="contact" class="section section-secondary">
+    <h2>Contact Us</h2>
+    <p><strong>Shop Name:</strong> M/S Suruj Hardware</p>
+    <p><strong>Address:</strong> Kapashbari, Hojai, Assam – 782445</p>
+    <p><strong>Phone:</strong> 9387127176</p>
+    <p><strong>Email:</strong> ms.surujhardware@gmail.com</p>
+    <p><strong>Business Hours:</strong> Monday to Saturday, 07 AM – 08 PM</p>
+</section>
+
+<!-- ===================== -->
+<!-- LOGIN SECTION -->
+<!-- ===================== -->
+<section id="login" class="section section-primary">
     <h2>Manager Login</h2>
-    <input id="username" placeholder="Mobile Number">
-    <input id="password" type="password" placeholder="Password">
+
+    <input type="text" id="username" placeholder="Enter Mobile Number">
+    <input type="password" id="password" placeholder="Enter Password">
     <button onclick="login()">Login</button>
+
+    <p class="login-info">
+        Authorized Managers Only
+    </p>
 </section>
 
-<!-- PANEL -->
+<!-- ===================== -->
+<!-- MANAGER PANEL -->
+<!-- ===================== -->
 <section id="panel" class="section section-light hidden">
 
-<div id="invoice">
+    <!-- ===================== -->
+    <!-- INVOICE AREA -->
+    <!-- ===================== -->
+    <div id="invoice" class="invoice-box">
 
-<h2>MS Suruj Hardware</h2>
-<p>Kapashbari, Hojai, Assam – 782445</p>
-<p>Phone: 9387127176</p>
-<hr>
+        <!-- SHOP DETAILS -->
+        <div class="invoice-header">
+            <h2>M/S Suruj Hardware</h2>
+            <p>Kapashbari, Hojai, Assam – 782445</p>
+            <p>Phone: 9387127176</p>
+        </div>
 
-<h3>Customer Details</h3>
-<input id="custName" placeholder="Customer Name">
-<input id="custPhone" placeholder="Customer Phone">
-<textarea id="custAddress" placeholder="Customer Address"></textarea>
+        <hr>
 
-<p><b>Date:</b> <span id="billDate"></span></p>
-<hr>
+        <!-- CUSTOMER DETAILS -->
+        <div class="invoice-customer">
+            <h3>Customer Details</h3>
 
-<h3>Add Item</h3>
-<select id="plist"></select>
-<input id="qty" type="number" placeholder="Quantity">
+            <input type="text" id="custName" placeholder="Customer Name">
+            <input type="text" id="custPhone" placeholder="Customer Phone Number">
+            <textarea id="custAddress" placeholder="Customer Address"></textarea>
 
-<select id="unit">
-    <option>Pieces</option>
-    <option>Bags</option>
-    <option>Quintal</option>
-</select>
+            <p><strong>Bill Date:</strong> <span id="billDate"></span></p>
+        </div>
 
-<button onclick="addItem()">Add Item</button>
+        <hr>
 
-<table>
-<tr>
-    <th>Item</th><th>Qty</th><th>Unit</th><th>Amount</th><th>❌</th>
-</tr>
-<tbody id="billTable"></tbody>
-</table>
+        <!-- ADD ITEM -->
+        <div class="invoice-items">
+            <h3>Add Items</h3>
 
-<p>Subtotal: ₹<span id="sub">0</span></p>
+            <select id="plist"></select>
 
-<label>Discount (₹)</label>
-<input id="discount" type="number" value="0" oninput="calculateTotal()">
+            <input type="number" id="qty" placeholder="Quantity">
 
-<p><b>Total Amount: ₹<span id="total">0</span></b></p>
+            <select id="unit">
+                <option value="Pieces">Pieces</option>
+                <option value="Bags">Bags</option>
+                <option value="Quintal">Quintal</option>
+            </select>
 
-<label>Payment Mode</label>
-<select id="paymentMode">
-    <option>Cash</option>
-    <option>UPI</option>
-</select>
+            <button onclick="addItem()">Add Item</button>
 
-</div>
+            <!-- BILL TABLE -->
+            <table class="bill-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th>Unit</th>
+                        <th>Amount (₹)</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody id="billTable"></tbody>
+            </table>
+        </div>
 
-<button onclick="saveBill()">Save Bill</button>
-<button onclick="downloadPDF()">Download PDF</button>
-<button onclick="logout()">Logout</button>
+        <!-- TOTALS -->
+        <div class="invoice-summary">
+            <p>Subtotal: ₹ <span id="sub">0</span></p>
+
+            <label>Discount (₹)</label>
+            <input type="number" id="discount" value="0" oninput="calculateTotal()">
+
+            <p><strong>Grand Total: ₹ <span id="total">0</span></strong></p>
+
+            <label>Payment Mode</label>
+            <select id="paymentMode">
+                <option value="Cash">Cash</option>
+                <option value="UPI">UPI</option>
+            </select>
+        </div>
+
+    </div>
+    <!-- INVOICE END -->
+
+    <!-- ACTION BUTTONS -->
+    <div class="panel-actions">
+        <button onclick="saveBill()">Save Bill</button>
+        <button onclick="downloadPDF()">Download Bill PDF</button>
+        <button onclick="logout()">Logout</button>
+    </div>
 
 </section>
 
-<a href="https://wa.me/919957713500" class="whatsapp-float" target="_blank">💬</a>
+<!-- ===================== -->
+<!-- WHATSAPP FLOAT -->
+<!-- ===================== -->
+<a href="https://wa.me/919957713500" class="whatsapp-float" target="_blank">
+    💬
+</a>
 
-<footer>
-    <p>© MS Suruj Hardware</p>
+<!-- ===================== -->
+<!-- FOOTER -->
+<!-- ===================== -->
+<footer class="main-footer">
+    <p>© 2026 M/S Suruj Hardware. All Rights Reserved.</p>
 </footer>
 
 </body>
